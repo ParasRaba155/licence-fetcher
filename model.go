@@ -25,3 +25,15 @@ type LicenseInfo struct {
 	Name string `json:"name"`
 	URL  string `json:"url"`
 }
+
+func ErrorLicenseInfo(msg string) LicenseInfo {
+	return LicenseInfo{
+		Key:  "error",
+		Name: msg,
+	}
+}
+
+type PackageJSON struct {
+	Dependencies    map[string]string `json:"dependencies"`
+	DevDependencies map[string]string `json:"devDependencies"`
+}

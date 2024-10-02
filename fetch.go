@@ -29,7 +29,7 @@ func fetchGithubURLforNPMPackage(pkg string) (string, error) {
 
 	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
-		slog.Error("fetchGithubURLforNPMPackage: request create", SlogErrorAttr(err))
+		slog.Error("fetchGithubURLforNPMPackage: request create", slog.String("package", pkg), SlogErrorAttr(err))
 		return "", err
 	}
 
@@ -41,7 +41,7 @@ func fetchGithubURLforNPMPackage(pkg string) (string, error) {
 	var resp NpmRegistryResp
 	err = json.Unmarshal(jsonResp, &resp)
 	if err != nil {
-		slog.Error("fetchGithubURLforNPMPackage: response Unmarshal", SlogErrorAttr(err))
+		slog.Error("fetchGithubURLforNPMPackage: response Unmarshal", slog.String("package", pkg), SlogErrorAttr(err))
 		return "", err
 	}
 	return resp.GetGitURL(), nil
@@ -79,18 +79,4 @@ func fetchLicenseFromGithubRepo(owner, repo string) (GithubRepoInfo, error) {
 		return resp, err
 	}
 	return resp, nil
-}
-
-func main() {
-	url, err := fetchGithubURLforNPMPackage("@babel/core")
-	if err != nil {
-		return
-	}
-	owner, repo, err := parseGithubURL(url)
-	if err != nil {
-		fmt.Println("error:", err)
-		return
-	}
-	lic, err := fetchLicenseFromGithubRepo(owner, repo)
-	fmt.Printf("err: %v, lic: %+v\n", err, lic)
 }

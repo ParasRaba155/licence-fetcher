@@ -7,5 +7,5 @@ Fetch the license of your project
 ## Check List
 
 - [x] Fetch Licenses of single npm packages
-- [ ] Fetch Licenses of npm packages through `package.json` file
-- [] Fetch Licenses of go mod packages
+- [x] Fetch Licenses of npm packages through `package.json` file
+- [ ] Fetch Licenses of go mod packages
